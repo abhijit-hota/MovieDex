@@ -1,6 +1,9 @@
-#MovieDex
+# MovieDex
 
 ### A React practice project that browses movies
+Below is the generated README
+
+---- 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
