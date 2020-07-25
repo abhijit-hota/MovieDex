@@ -1,0 +1,6 @@
+#searchBar {
+    width: 90vw;
+    height: 40px;
+    border-color: gray;
+    box-shadow: 3px 3px 5px #333333;
+}

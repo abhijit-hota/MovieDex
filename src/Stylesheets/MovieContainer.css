@@ -1,0 +1,6 @@
+#movieContainer {
+    margin-top: 80px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}

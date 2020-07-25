@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import SearchBar from "./components/SearchBar";
+import MovieContainer from "./components/MovieContainer";
+import Logo from "./components/Logo"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            queryString: "",
+		};
+		this.setQueryString = this.setQueryString.bind(this);
+    }
+    
+	setQueryString(val) {
+		this.setState({
+			queryString: val
+		});
+	}
+    
+    render() {
+        return (
+            <div className="App">
+				<Logo/>
+				<SearchBar queryString={ this.state.queryString } setQueryString={ this.setQueryString } />
+				<MovieContainer queryString={ this.state.queryString }/>
+            </div>
+        );
+    }
 }
 
 export default App;
