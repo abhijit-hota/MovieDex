@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/abhijit-hota/movie-dex/issues"
   },
-  "homepage": "https://github.com/abhijit-hota/movie-dex#readme"
+  "homepage": "https://github.com/abhijit-hota/movie-dex#readme",
+  "devDependencies": {
+    "concurrently": "5.2.0"
+  }
 }
