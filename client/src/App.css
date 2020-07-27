@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  /* background-color: beige; */
+  /* margin:0px 25vw 0 25vw; */
 }
 
 .App-logo {
@@ -35,4 +37,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#modal-root{
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
 }
