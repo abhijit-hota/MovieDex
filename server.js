@@ -4,6 +4,9 @@ require("dotenv").config();
 
 const app = express();
 
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
 app.get("/getMovies/", async (req, res) => {
     try {
         const movieList = await fetch(
@@ -13,7 +16,7 @@ app.get("/getMovies/", async (req, res) => {
         res.json(movieListJSON.results);
     } catch (error) {
         console.error("Error occured", error);
-        res.json(["Error obtaining results"])
+        res.json(["Error obtaining results"]);
     }
 });
 
