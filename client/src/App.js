@@ -3,6 +3,7 @@ import "./App.css";
 import SearchBar from "./components/SearchBar";
 import MovieContainer from "./components/MovieContainer";
 import Logo from "./components/Logo"
+import Info from "./components/Info";
 
 class App extends Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
             <div className="App">
 				<Logo/>
 				<SearchBar queryString={ this.state.queryString } setQueryString={ this.setQueryString } />
+                <Info/>
 				<MovieContainer queryString={ this.state.queryString }/>
             </div>
         );

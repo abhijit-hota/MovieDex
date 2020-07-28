@@ -1,9 +1,11 @@
 .App {
     text-align: center;
-    background-color: #e5e5e5;
     display: flex;
-    flex-direction:column;
-  align-items: center;
+    background-color: transparent;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, #e5e5e5 30%, #ffffff 70%);
+
 }
 h1,
 h2,
@@ -11,5 +13,5 @@ h3,
 h4,
 h5 {
     margin: 0;
-    columns: #212121;;
+    columns: #444444;
 }

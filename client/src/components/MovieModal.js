@@ -54,6 +54,7 @@ const MovieModal = (props) => {
 
     return (
         <Modal
+            disableScrollLock
             style={{ outline: "0" }}
             open={props.shouldModalDisplay}
             onClose={props.closeModal}

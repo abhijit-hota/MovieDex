@@ -21,7 +21,7 @@ const MovieContainer = (props) => {
     useEffect(() => {
         if (props.queryString.length === 0) {
             setLoading(true);
-            setMessage("Start searching now!");
+            setMessage("");
         }
         if (props.queryString.length) {
             setLoading(true);

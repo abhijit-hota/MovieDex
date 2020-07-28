@@ -10,6 +10,7 @@
     "react": "^16.13.1",
     "react-content-loader": "5.1.0",
     "react-dom": "^16.13.1",
+    "react-github-btn": "1.2.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {
