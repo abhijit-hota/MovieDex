@@ -1,6 +1,19 @@
-.movieModal{
-    height: 200px;
-    width: 300px;
+.movieModal {
+    height: 90vh;
+    width: 90vw;
+    max-height: 500px;
+    max-width: 800px;
     padding: 40px;
-    background-Color: red;
+    background-color: #e5e5e5;
+    border-radius: 10px;
+}
+.modalTitle{
+    margin: -10px 0 auto 0px;
+}
+.modalYear{
+    margin-bottom: 15px;
+    color: #555555;
+}
+.modalPlot{
+    margin-bottom: 15px;
 }

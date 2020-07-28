@@ -17,7 +17,7 @@ const SearchBar = (props) => {
     return (
         <>
             <TextField
-                // className={classes.root}
+                className={classes.root}
                 id="standard-basic"
                 label="Start Searching..."
                 value={ props.queryString }

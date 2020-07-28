@@ -1,5 +1,10 @@
 import React from "react";
 import defaultPoster from "../Stylesheets/default.png";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
 
 const MovieCard = (props) => {
     const styles = {
@@ -8,30 +13,38 @@ const MovieCard = (props) => {
         margin: "10px",
         marginBottom: "30px",
         marginTop: "10px",
-        boxShadow: "5px 5px 15px #555555",
+        display: 'flex',
+        flexDirection:'column',
+        alignItems:'center'
     };
-    const posterImg = (<img
-        src={
-            props.poster
-                ? `https://image.tmdb.org/t/p/w300${props.poster}`
-                : defaultPoster
-        }
-        alt={ `${props.title} poster` }
-        style={ { width: "100%" } }
-    />);
+    
     return (
-        <div className="movieCard" style={styles}>
-            {posterImg}
-            <div className="label">
-                <h3 style={{ margin: "0px" }}>{props.title}</h3>
-                <h3>{props.year}</h3>
-                <button
-                    className="more"
+        <Card style={styles} raised>
+                <CardMedia
+                    component="img"
+                    alt={`${props.title} poster`}
+                    width="100%"
+                    image={
+                        props.poster
+                            ? `https://image.tmdb.org/t/p/w300${props.poster}`
+                            : defaultPoster
+                    }
+                    title={`${props.title}`}
+                />
+                <CardContent>
+                    <h2 style={{ margin: "0px" }}>{props.title}</h2>
+                    <h4 style={{ margin: "0px" }}>{props.year}</h4>
+                </CardContent>
+            <CardActions>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    size="medium"
                     onClick={() => props.openModal(props.id)}>
                     More
-                </button>
-            </div>
-        </div>
+                </Button>
+            </CardActions>
+        </Card>
     );
 };
 

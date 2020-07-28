@@ -4,21 +4,15 @@ import "../Stylesheets/MovieContainer.css";
 import MovieModal from "./MovieModal";
 
 const MovieContainer = (props) => {
-    const [movies, getMovies] = useState([]);
+    const [movies, setMovies] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [shouldModalDisplay, setModalDisplay] = useState(false);
-    const [imdb_id, setImdbId] = useState("");
-    const [posterImg, setPoster] = useState({});
+    const [tmdb_id, setId] = useState("");
 
-    const openModal = async (id, posterIMG) => {
+    const openModal = async (id) => {
         setModalDisplay(true);
-        const res = await fetch(
-            `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=en-US`
-        );
-        const resJSON = await res.json();
-        setImdbId(resJSON.imdb_id);
-        setPoster(posterIMG);
+        setId(id);
     };
 
     const closeModal = () => {
@@ -33,12 +27,12 @@ const MovieContainer = (props) => {
             setMessage("Loading");
             const fetchData = async () => {
                 const res = await fetch(
-                    `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&language=en-US&query=${props.queryString}&page=1&include_adult=false`
+                    `/getMovies/?queryString=${props.queryString}`
                 );
                 const resJSON = await res.json();
-                getMovies(resJSON.results);
+                setMovies(resJSON);
                 setLoading(false);
-                if (resJSON.results.length === 0) {
+                if (resJSON.length === 0) {
                     setMessage("No movies found! :(");
                 }
             };
@@ -70,15 +64,13 @@ const MovieContainer = (props) => {
                     <h1>{message}</h1>
                 )}
             </div>
-            {/* {shouldModalDisplay ? ( */}
-            <MovieModal
-                shouldModalDisplay={shouldModalDisplay}
-                imdb_id={imdb_id}
-                closeModal={ closeModal }
-                posterImg={posterImg}
-            >
-            </MovieModal>
-            {/* // ) : null} */}
+            {shouldModalDisplay ? (
+                <MovieModal
+                    shouldModalDisplay={shouldModalDisplay}
+                    tmdb_id={tmdb_id}
+                    closeModal={closeModal}
+                />
+            ) : null}
         </>
     );
 };
