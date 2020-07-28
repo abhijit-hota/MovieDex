@@ -11,6 +11,7 @@ const MovieCard = (props) => {
         backgroundColor: "whitesmoke",
         width: "240px",
         margin: "10px",
+        height:'auto',
         marginBottom: "30px",
         marginTop: "10px",
         display: 'flex',

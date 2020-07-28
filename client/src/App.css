@@ -1,7 +1,9 @@
 .App {
     text-align: center;
-  background-color: #212121;
-
+    background-color: #e5e5e5;
+    display: flex;
+    flex-direction:column;
+  align-items: center;
 }
 h1,
 h2,
@@ -9,4 +11,5 @@ h3,
 h4,
 h5 {
     margin: 0;
+    columns: #212121;;
 }

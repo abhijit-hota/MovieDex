@@ -1,8 +1,8 @@
 .movieModal {
-    height: 90vh;
-    width: 90vw;
-    max-height: 500px;
-    max-width: 800px;
+    height: auto;
+    width: auto;
+    /* max-height: 500px; */
+    max-width: 700px;
     padding: 40px;
     background-color: #e5e5e5;
     border-radius: 10px;
@@ -15,5 +15,12 @@
     color: #555555;
 }
 .modalPlot{
-    margin-bottom: 15px;
+    margin:15px 0px 15px 0px;
+}
+.modalRuntime{
+    margin-bottom:15px;
+}
+.btn{
+    text-align: center;
+    width: 100%;
 }

@@ -20,9 +20,10 @@ const MovieContainer = (props) => {
     };
     useEffect(() => {
         if (props.queryString.length === 0) {
+            setLoading(true);
             setMessage("Start searching now!");
         }
-        if (props.queryString.length > 3) {
+        if (props.queryString.length) {
             setLoading(true);
             setMessage("Loading");
             const fetchData = async () => {
