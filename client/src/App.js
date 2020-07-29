@@ -9,7 +9,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            queryString: "",
+            queryString: "thor",
 		};
 		this.setQueryString = this.setQueryString.bind(this);
     }

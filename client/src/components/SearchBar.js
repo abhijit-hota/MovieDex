@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         "& > *": {
             margin: theme.spacing(4),
-            width: "90vw",
+            width: "85vw",
             maxWidth: "700px",
         },
     },
@@ -19,7 +19,7 @@ const SearchBar = (props) => {
         <div className={classes.root}>
             <TextField
                 fullWidth
-                label="Search"
+                label="Search for a movie"
                 value={props.queryString}
                 size="medium"
                 onChange={(e) => props.setQueryString(e.target.value)}

@@ -3,11 +3,9 @@ import GitHubButton from "react-github-btn";
 
 const Info = () => {
     const styles = {
-        position: "static",
-        top: "0",
-        right: "0",
         display: 'flex',
-        flex:'row wrap'
+        alignItems:'center',
+        flexFlow: 'column',
     };
 
     return (
@@ -27,7 +25,7 @@ const Info = () => {
                 data-size="large"
                 data-show-count="true"
                 aria-label="Star this project on GitHub">
-                Star this project on GitHub
+                Star this project
             </GitHubButton>
         </div>
     );

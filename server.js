@@ -5,6 +5,7 @@ require("dotenv").config();
 const app = express();
 
 if (process.env.NODE_ENV === "production") {
+    console.log("Production environment");
     app.use(express.static("client/build"));
 }
 app.get("/getMovies/", async (req, res) => {

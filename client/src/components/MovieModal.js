@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Ratings from "./ModalRatings";
-import { Modal, Grow, Grid, Button, Chip, makeStyles } from "@material-ui/core";
+import { Grow, Grid, Button, Chip, makeStyles, Dialog, useMediaQuery } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 import "../Stylesheets/MovieModal.css";
 import defaultPoster from "../Stylesheets/default.png";
 
@@ -17,6 +18,8 @@ const MovieModal = (props) => {
     const [imdbData, setImdbData] = useState({});
     const [loading, setLoading] = useState(true);
     const classes = useStyles();
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
     useEffect(() => {
         const fetchImdbIDandPoster = async () => {
@@ -53,60 +56,63 @@ const MovieModal = (props) => {
     );
 
     return (
-        <Modal
-            disableScrollLock
-            style={{ outline: "0" }}
+        <Dialog
+            fullScreen={fullScreen}
+            maxWidth="md"
             open={props.shouldModalDisplay}
             onClose={props.closeModal}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description">
+            aria-labelledby="Movie Modal"
+            aria-describedby="Movie description">
             <Grow in={props.shouldModalDisplay}>
-                <Grid container spacing={0} justify="center" alignItems="center" style={{ minHeight: "100vh" }}>
-                    <Grid className="movieModal">
-                        {loading ? (
-                            //Replace below element with skeleton loader
-                            <div>Loading</div>
-                        ) : (
-                            <Grid container spacing={5} direction="row" alignItems="flex-start" wrap="wrap">
-                                <Grid item xs={12} sm={6} lg={5}>
-                                    {posterImg}
+                <Grid className="movieModal">
+                    {loading ? (
+                        //Replace below element with skeleton loader
+                        <div>Loading</div>
+                    ) : (
+                        <Grid container spacing={5} direction="row" alignItems="flex-start" wrap="wrap">
+                            <Grid item xs={12} sm={6} lg={5}>
+                                {posterImg}
+                            </Grid>
+                            <Grid item xs={12} sm={6} lg={7}>
+                                <h1 className="modalTitle">{tmdbData.title}</h1>
+                                <h2 className="modalYear">{imdbData.Year || tmdbData.release_date.split("-")[0]}</h2>
+                                <Grid container spacing={1} justify="flex-start" className={classes.modalGenres}>
+                                    {tmdbData.genres
+                                        ? tmdbData.genres.map((genre) => (
+                                              <Chip key={genre.id} variant="outlined" label={genre.name} />
+                                          ))
+                                        : null}
                                 </Grid>
-                                <Grid item xs={12} sm={6} lg={7}>
-                                    <h1 className="modalTitle">{tmdbData.title}</h1>
-                                    <h2 className="modalYear">
-                                        {imdbData.Year || tmdbData.release_date.split("-")[0]}
-                                    </h2>
-                                    <Grid container spacing={1} justify="flex-start" className={classes.modalGenres}>
-                                        {tmdbData.genres
-                                            ? tmdbData.genres.map((genre) => (
-                                                  <Chip key={genre.id} variant="outlined" label={genre.name} />
-                                              ))
-                                            : null}
+                                <h3 className="modalPlot">{imdbData.Plot || tmdbData.overview}</h3>
+                                <h3 className="modalRuntime">
+                                    <span className="labels">Runtime</span>
+                                    <br />
+                                    {` ${Math.floor(parseFloat(tmdbData.runtime) / 60)}hrs ${
+                                        parseFloat(tmdbData.runtime) % 60
+                                    }mins`}
+                                </h3>
+                                {imdbData.Ratings && <Ratings ratings={imdbData.Ratings} />}
+                                <Grid container spacing={3} style={{ marginTop: "20px" }}>
+                                    <Grid item xs={12} lg={8} md={8}>
+                                        <h3 className="labels">Cast</h3>
+                                        <h4>{imdbData.Actors && imdbData.Actors}</h4>
                                     </Grid>
-                                    <h3 className="modalPlot">{imdbData.Plot || tmdbData.overview}</h3>
-                                    <h3 className="modalRuntime">
-                                        Runtime:
-                                        {` ${Math.floor(parseFloat(tmdbData.runtime) / 60)}hrs ${
-                                            parseFloat(tmdbData.runtime) % 60
-                                        }mins`}
-                                    </h3>
-                                    {imdbData.Ratings && <Ratings ratings={imdbData.Ratings} />}
-                                </Grid>
-                                <Grid item lg={12}>
-                                    <h4>Director: {imdbData.Director && imdbData.Director}</h4>
-                                    <h4>Cast: {imdbData.Actors && imdbData.Actors}</h4>
-                                </Grid>
-                                <Grid item lg={12} className="btn">
-                                    <Button onClick={props.closeModal} variant="outlined" color="primary">
-                                        Close
-                                    </Button>
+                                    <Grid item xs={12} lg={4} md={4}>
+                                        <h3 className="labels">Director</h3>
+                                        <h4>{imdbData.Director && imdbData.Director}</h4>
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                        )}
-                    </Grid>
+                            <Grid item lg={12} className="btn">
+                                <Button onClick={props.closeModal} variant="outlined" color="primary">
+                                    Close
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    )}
                 </Grid>
             </Grow>
-        </Modal>
+        </Dialog>
     );
 };
 

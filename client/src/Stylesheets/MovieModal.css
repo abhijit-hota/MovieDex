@@ -1,17 +1,19 @@
 .movieModal {
-    height: auto;
-    width: auto;
-    /* max-height: 500px; */
-    max-width: 700px;
-    padding: 40px;
+    /* height: auto; */
+    /* width: 90vw; */
+    /* max-width: 700px; */
+    padding: 30px;
     background-color: #e5e5e5;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 .modalTitle{
     margin: -10px 0 auto 0px;
 }
 .modalYear{
     margin-bottom: 15px;
+    color: #555555;
+}
+.labels{
     color: #555555;
 }
 .modalPlot{
