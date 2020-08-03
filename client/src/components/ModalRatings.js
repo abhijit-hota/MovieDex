@@ -29,11 +29,17 @@ const Ratings = (props) => {
     }, [props.ratings]);
 
     return (
-        <Grid container spacing={3} justify="flex-start" alignItems="center">
+        <>
             {ratings
                 ? ratings.map((rating) => {
                       return (
-                          <Grid item key={rating.Source} lg={3} xs={3} sm={3} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                          <Grid
+                              item
+                              key={rating.Source}
+                              lg={3}
+                              xs={3}
+                              sm={3}
+                              style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                               <div
                                   style={{
                                       position: "absolute",
@@ -56,15 +62,15 @@ const Ratings = (props) => {
                                   thickness={5}
                               />
                               <img
-                                  style={ {width: `${rating.Source[0] === 'I' ? '50px' : '80px' }`, marginTop: "5px" }}
+                                  style={{ width: `${rating.Source[0] === "I" ? "50px" : "80px"}`, marginTop: "5px" }}
                                   src={logos[rating.Source.toLowerCase()]}
                                   alt={`${rating.Source} logo`}
                               />
                           </Grid>
                       );
                   })
-                : "loading"}
-        </Grid>
+                : null}
+        </>
     );
 };
 

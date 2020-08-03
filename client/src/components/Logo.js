@@ -6,7 +6,7 @@ import omdbLogo from "../Stylesheets/omdbLogo.png";
 const Logo = () => {
     const styles = {
         primaryLogo: {
-            margin: "40px 0 80px 0px",
+            margin: "40px 0 40px 0px",
             width: "90vw",
             maxWidth: "500px",
             justifySelf: "center",

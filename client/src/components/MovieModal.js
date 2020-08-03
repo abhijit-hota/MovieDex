@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Ratings from "./ModalRatings";
-import { Grow, Grid, Button, Chip, makeStyles, Dialog, useMediaQuery } from "@material-ui/core";
+import { Grow, Grid, Button, Chip, makeStyles, Dialog, useMediaQuery, Typography } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import "../Stylesheets/MovieModal.css";
 import defaultPoster from "../Stylesheets/default.png";
+import { Skeleton } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     modalGenres: {
         "& > *": {
             margin: theme.spacing(0.5),
+            marginBottom: "15px",
         },
     },
 }));
@@ -50,7 +52,7 @@ const MovieModal = (props) => {
         <img
             src={tmdbData.poster_path ? `https://image.tmdb.org/t/p/w400${tmdbData.poster_path}` : defaultPoster}
             alt={`${tmdbData.title} poster`}
-            style={{ maxWidth: "100%", margin: "auto" }}
+            style={{ maxWidth: "100%", margin: "auto", borderRadius: "10px", boxShadow: "5px 5px 15px #212121" }}
             className="modalPoster"
         />
     );
@@ -65,51 +67,105 @@ const MovieModal = (props) => {
             aria-describedby="Movie description">
             <Grow in={props.shouldModalDisplay}>
                 <Grid className="movieModal">
-                    {loading ? (
-                        //Replace below element with skeleton loader
-                        <div>Loading</div>
-                    ) : (
-                        <Grid container spacing={5} direction="row" alignItems="flex-start" wrap="wrap">
-                            <Grid item xs={12} sm={6} lg={5}>
-                                {posterImg}
+                    <Grid container spacing={5} direction="row" alignItems="flex-start" wrap="wrap">
+                        <Grid item xs={12} sm={6} lg={5}>
+                            {loading ? (
+                                <Skeleton variant="rect" animation="wave" width={320} height={480} />
+                            ) : (
+                                posterImg
+                            )}
+                        </Grid>
+                        <Grid item xs={12} sm={6} lg={7}>
+                            <Typography variant="h4" className="modalTitle">
+                                {loading ? <Skeleton /> : tmdbData.title}
+                            </Typography>
+                            <Typography className="labels" variant="h6" gutterBottom>
+                                {loading ? (
+                                    <Skeleton variant="text" width={75} height={30} />
+                                ) : (
+                                    imdbData.Year || tmdbData.release_date.split("-")[0]
+                                )}
+                            </Typography>
+                            <Grid container spacing={1} justify="flex-start" className={classes.modalGenres}>
+                                {loading
+                                    ? Array.from(new Array(3)).map((item, index) => (
+                                          <Skeleton key={index} variant="rect" width={70} height={35} />
+                                      ))
+                                    : tmdbData.genres
+                                    ? tmdbData.genres.map((genre) => (
+                                          <Chip key={genre.id} variant="outlined" label={genre.name} />
+                                      ))
+                                    : null}
                             </Grid>
-                            <Grid item xs={12} sm={6} lg={7}>
-                                <h1 className="modalTitle">{tmdbData.title}</h1>
-                                <h2 className="modalYear">{imdbData.Year || tmdbData.release_date.split("-")[0]}</h2>
-                                <Grid container spacing={1} justify="flex-start" className={classes.modalGenres}>
-                                    {tmdbData.genres
-                                        ? tmdbData.genres.map((genre) => (
-                                              <Chip key={genre.id} variant="outlined" label={genre.name} />
-                                          ))
-                                        : null}
-                                </Grid>
-                                <h3 className="modalPlot">{imdbData.Plot || tmdbData.overview}</h3>
-                                <h3 className="modalRuntime">
-                                    <span className="labels">Runtime</span>
-                                    <br />
-                                    {` ${Math.floor(parseFloat(tmdbData.runtime) / 60)}hrs ${
+                            <Typography variant="subtitle1" className="valueText" gutterBottom>
+                                {loading ? (
+                                    <>
+                                        <Skeleton />
+                                        <Skeleton />
+                                        <Skeleton />
+                                    </>
+                                ) : (
+                                    imdbData.Plot || tmdbData.overview
+                                )}
+                            </Typography>
+                            <Typography variant="h6" className="labels">
+                                Runtime
+                            </Typography>
+                            <Typography variant="subtitle1" className="valueText" gutterBottom>
+                                {loading ? (
+                                    <Skeleton variant="text" width={150} />
+                                ) : (
+                                    ` ${Math.floor(parseFloat(tmdbData.runtime) / 60)}hrs ${
                                         parseFloat(tmdbData.runtime) % 60
-                                    }mins`}
-                                </h3>
-                                {imdbData.Ratings && <Ratings ratings={imdbData.Ratings} />}
-                                <Grid container spacing={3} style={{ marginTop: "20px" }}>
-                                    <Grid item xs={12} lg={8} md={8}>
-                                        <h3 className="labels">Cast</h3>
-                                        <h4>{imdbData.Actors && imdbData.Actors}</h4>
-                                    </Grid>
-                                    <Grid item xs={12} lg={4} md={4}>
-                                        <h3 className="labels">Director</h3>
-                                        <h4>{imdbData.Director && imdbData.Director}</h4>
-                                    </Grid>
-                                </Grid>
+                                    }mins`
+                                )}
+                            </Typography>
+                            <Grid
+                                container
+                                spacing={3}
+                                justify="flex-start"
+                                alignItems="center"
+                                style={{ marginTop: "15px" }}>
+                                {loading
+                                    ? Array.from(new Array(3)).map((item, index) => (
+                                          <Grid item key={index} lg={3} xs={3} sm={3}>
+                                              <Skeleton variant="circle" width={80} height={80} />
+                                          </Grid>
+                                      ))
+                                    : imdbData.Ratings && <Ratings ratings={imdbData.Ratings} />}
                             </Grid>
-                            <Grid item lg={12} className="btn">
-                                <Button onClick={props.closeModal} variant="outlined" color="primary">
-                                    Close
-                                </Button>
+                            <Grid container spacing={3} style={{ marginTop: "20px" }}>
+                                <Grid item xs={12} lg={8} md={8}>
+                                    <Typography variant="h6" className="labels">
+                                        Cast
+                                    </Typography>
+                                    <Typography variant="subtitle1" className="valueText">
+                                        {loading ? (
+                                            <>
+                                                <Skeleton />
+                                                <Skeleton variant="text" width={200} />
+                                            </>
+                                        ) : (
+                                            imdbData.Actors && imdbData.Actors
+                                        )}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12} lg={4} md={4}>
+                                    <Typography variant="h6" className="labels">
+                                        Director
+                                    </Typography>
+                                    <Typography variant="subtitle1" className="valueText">
+                                        {loading ? <Skeleton /> : imdbData.Director && imdbData.Director}
+                                    </Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    )}
+                        <Grid item lg={12} className="btn">
+                            <Button onClick={props.closeModal} variant="outlined" color="primary">
+                                Close
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grow>
         </Dialog>

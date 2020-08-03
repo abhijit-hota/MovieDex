@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import "../Stylesheets/MovieContainer.css";
 import MovieModal from "./MovieModal";
-// import Paginate from "./Pagination";
+import MovieCardSkeleton from "./MovieCardSkeleton";
 
-const MovieContainer = (props) => {
+const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
     const [movies, setMovies] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
@@ -20,40 +20,37 @@ const MovieContainer = (props) => {
         setModalDisplay(false);
     };
     useEffect(() => {
-        if (props.queryString.length === 0) {
+        if (queryString.length === 0) {
+            setNumPagesAndResults(0, 0, 0);
             setLoading(true);
             setMessage("");
-            props.setNumPagesAndResults(0, 0);
         }
-        if (props.queryString.length) {
+        if (queryString.length) {
             setLoading(true);
             setMessage("Loading");
             const fetchData = async () => {
-                const res = await fetch(`/getMovies/?queryString=${props.queryString}&page=${props.page}`);
+                const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`);
                 const resJSON = await res.json();
-                // if (res.status >= 200 && res.status < 400) {   
-                    const { results, total_pages, total_results } = resJSON;
-                    setMovies(results);
-                    props.setNumPagesAndResults(total_pages, total_results);
-                    
-                    setLoading(false);
-                    if (results.length === 0) {
-                        setMessage("No movies found! :(");
-                    }
-                // }
+                const { results, total_pages, total_results } = resJSON;
+                setMovies(results);
+                setNumPagesAndResults(total_pages, total_results, results.length);
+
+                setLoading(false);
+                if (results && results.length === 0) {
+                    setMessage("No movies found! :(");
+                }
             };
-            console.log("called");
             fetchData();
         }
-    }, [props.queryString, props.page]);
+    }, [queryString, page]);
 
     return (
         <>
             <div id="movieContainer">
-                {isLoading ? (
-                    <h1>{message}</h1>
-                ) : movies && movies.length ? (
-                        movies.map((movie) => (
+                {isLoading && queryString.length > 0? (
+                    Array.from(new Array(5)).map((item, index) => <MovieCardSkeleton key={index} />)
+                ) : queryString.length > 0 && movies && movies.length ? (
+                    movies.map((movie) => (
                         <MovieCard
                             key={movie.id}
                             title={movie.title}
@@ -62,7 +59,7 @@ const MovieContainer = (props) => {
                             year={movie.release_date ? movie.release_date.split("-")[0] : null}
                             openModal={openModal}
                         />
-                        ))
+                    ))
                 ) : (
                     <h1>{message}</h1>
                 )}

@@ -1,27 +1,16 @@
 .movieModal {
-    /* height: auto; */
-    /* width: 90vw; */
-    /* max-width: 700px; */
     padding: 30px;
     background-color: #e5e5e5;
-    /* border-radius: 10px; */
-}
-.modalTitle{
-    margin: -10px 0 auto 0px;
-}
-.modalYear{
-    margin-bottom: 15px;
-    color: #555555;
 }
 .labels{
-    color: #555555;
+    color: #212121;
+    font-weight: 600 !important;
 }
-.modalPlot{
-    margin:15px 0px 15px 0px;
+.valueText{
+    font-size: medium !important;
+    line-height: 1.5em !important;
 }
-.modalRuntime{
-    margin-bottom:15px;
-}
+
 .btn{
     text-align: center;
     width: 100%;
