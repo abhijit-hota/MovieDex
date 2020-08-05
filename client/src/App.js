@@ -33,7 +33,7 @@ class App extends Component {
         });
     }
     setNumPagesAndResults(total_pages, total_results, present_results) {
-        this.setState({ total_pages, total_results, present_results }, () => console.log(this.state));
+        this.setState({ total_pages, total_results, present_results });
     }
 
     render() {

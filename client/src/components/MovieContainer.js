@@ -30,14 +30,20 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
             setMessage("Loading");
             const fetchData = async () => {
                 const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`);
-                const resJSON = await res.json();
-                const { results, total_pages, total_results } = resJSON;
-                setMovies(results);
-                setNumPagesAndResults(total_pages, total_results, results.length);
-
-                setLoading(false);
-                if (results && results.length === 0) {
-                    setMessage("No movies found! :(");
+                if (res.status >= 200 && res.status < 400) {
+                    
+                    const resJSON = await res.json();
+                    console.log(resJSON);
+                    const { results, total_pages, total_results } = resJSON;
+                    setMovies(results);
+                    setNumPagesAndResults(total_pages, total_results, results.length);
+                    setLoading(false);
+                    if (results && results.length === 0) {
+                        setMessage("No movies found! :(");
+                    }
+                } else {
+                    setLoading(false);
+                    setMessage("Something went wrong. Please try again.");
                 }
             };
             fetchData();
