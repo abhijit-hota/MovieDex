@@ -20,39 +20,52 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
         setModalDisplay(false);
     };
     useEffect(() => {
+
+        const abortController = new AbortController();
+
         if (queryString.length === 0) {
             setNumPagesAndResults({ total_pages: 0, total_results: 0, present_results: 0 });
             setLoading(true);
             setMessage("");
         }
-        if (queryString.length) {
+        if (queryString.length > 0) {
             setLoading(true);
             setMessage("Loading");
             console.log("test");
             const fetchData = async () => {
-                const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`);
+                try {
+                    const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`, {signal: abortController.signal});
 
-                if (res.status >= 200 && res.status < 400) {
+                    if (res.status >= 200 && res.status < 400) {
+                        const resJSON = await res.json();
+                        const { results, total_pages, total_results } = resJSON;
+                        setMovies(results);
 
-                    const resJSON = await res.json();
-                    const { results, total_pages, total_results } = resJSON;
-                    setMovies(results);
+                        const present_results = results.length;
+                        setNumPagesAndResults({ total_pages, total_results, present_results });
 
-                    const present_results = results.length;
-                    setNumPagesAndResults({ total_pages, total_results, present_results });
+                        setLoading(false);
 
-                    setLoading(false);
-
-                    if (results && results.length === 0) {
-                        setMessage("No movies found! :(");
+                        if (results && results.length === 0) {
+                            setMessage("No movies found! :(");
+                        }
+                    } else {
+                        setLoading(false);
+                        setMessage("Something went wrong. Please try again.");
                     }
-                } else {
-                    setLoading(false);
-                    setMessage("Something went wrong. Please try again.");
+                } catch (error) {
+                    if (abortController.signal.aborted) {
+                        console.log("Request aborted. Clean up called.");
+                    } else {
+                        console.log(error);
+                    }
                 }
             };
-
             fetchData();
+
+            return () => {
+                abortController.abort();
+            };
         }
     }, [queryString, page, setNumPagesAndResults]);
 
@@ -62,7 +75,6 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
                 {isLoading && queryString.length > 0 ? (
                     Array.from(new Array(5)).map((item, index) => <MovieCardSkeleton key={index} />)
                 ) : queryString.length > 0 && movies && movies.length ? (
-
                     movies.map((movie) => (
                         <MovieCard
                             key={movie.id}

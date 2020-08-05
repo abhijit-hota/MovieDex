@@ -7,7 +7,7 @@ import Info from "./components/Info";
 import Paginate from "./components/Paginate";
 
 const App = (props) => {
-    const [queryString, setQueryString] = useState("");
+    const [queryString, setQueryString] = useState("thor");
     const [page, setPage] = useState(1);
     const [num_pages_results, setNumPagesAndResults] = useState({
         total_pages: 0,

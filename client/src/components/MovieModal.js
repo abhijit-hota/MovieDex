@@ -24,28 +24,57 @@ const MovieModal = (props) => {
     const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
     useEffect(() => {
+        const abortController = new AbortController();
+
         const fetchImdbIDandPoster = async () => {
-            const res = await fetch(`getMovieDetails/?id=${props.tmdb_id}`);
-            const resJSON = await res.json();
-            await setTmdbData(resJSON);
+            try {
+                const res = await fetch(`getMovieDetails/?id=${props.tmdb_id}`, { signal: abortController.signal });
+                const resJSON = await res.json();
+                await setTmdbData(resJSON);
+            } catch (error) {
+                if (abortController.signal.aborted) {
+                    console.log("Request aborted. Clean up called.");
+                } else {
+                    console.log(error);
+                }
+            }
         };
         fetchImdbIDandPoster();
+
+        return () => {
+            abortController.abort();
+        };
     }, [props.tmdb_id]);
 
     useEffect(() => {
+        const abortController = new AbortController();
+
         const fetchIMDBData = async () => {
-            const res = await fetch(`/getIMDBData/?imdbId=${tmdbData.imdb_id}`);
-            const resJSON = await res.json();
-            setImdbData(resJSON);
-            if (imdbData.Response === "True") {
-                setLoading(false);
+            try {
+                const res = await fetch(`/getIMDBData/?imdbId=${tmdbData.imdb_id}`, { signal: abortController.signal });
+                const resJSON = await res.json();
+                setImdbData(resJSON);
+                if (imdbData.Response === "True") {
+                    setLoading(false);
+                }
+            } catch (error) {
+                if (abortController.signal.aborted) {
+                    console.log("Request aborted. Clean up called.");
+                } else {
+                    console.log(error);
+                }
             }
         };
+
         if (tmdbData.imdb_id && tmdbData.imdb_id.length > 0) {
             fetchIMDBData();
         } else if (tmdbData.imdb_id) {
             setLoading(false);
         }
+
+        return () => {
+            abortController.abort();
+        };
     }, [tmdbData.imdb_id, imdbData.Response]);
 
     const posterImg = (
