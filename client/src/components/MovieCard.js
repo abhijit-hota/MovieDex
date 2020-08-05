@@ -1,10 +1,10 @@
 import React from "react";
 import defaultPoster from "../Stylesheets/default.png";
-import { Card, CardActions, CardContent, CardMedia, Button } from "@material-ui/core";
+import { Card, CardActions, CardContent, CardMedia, Button, CardActionArea } from "@material-ui/core";
 
 const MovieCard = (props) => {
     const styles = {
-        backgroundColor: "whitesmoke",
+        backgroundColor: "transparent",
         width: "270px",
         margin: "10px",
         height: "auto",
@@ -16,22 +16,20 @@ const MovieCard = (props) => {
 
     return (
         <Card style={styles} raised>
-            <CardMedia
-                component="img"
-                alt={`${props.title} poster`}
-                width="100%"
-                image={props.poster ? `https://image.tmdb.org/t/p/w300${props.poster}` : defaultPoster}
-                title={`${props.title}`}
-            />
-            <CardContent>
-                <h2 style={{ margin: "0px" }}>{props.title}</h2>
-                <h4 style={{ margin: "0px" }}>{props.year}</h4>
-            </CardContent>
-            <CardActions>
-                <Button variant="outlined" color="primary" size="medium" onClick={() => props.openModal(props.id)}>
-                    More
-                </Button>
-            </CardActions>
+                <CardActionArea onClick={() => props.openModal(props.id)}>
+                <CardMedia
+                    component="img"
+                    alt={`${props.title} poster`}
+                    width="100%"
+                    image={props.poster ? `https://image.tmdb.org/t/p/w300${props.poster}` : defaultPoster}
+                    title={`${props.title}`}
+                />
+                <CardContent>
+                    <h2 style={{ margin: "0px" }}>{props.title}</h2>
+                    <h3 style={{ margin: "0px" }}>{props.year}</h3>
+                        {/* Click/Tap to know More */}
+                </CardContent>
+            </CardActionArea>
         </Card>
     );
 };

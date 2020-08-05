@@ -62,6 +62,7 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
                 {isLoading && queryString.length > 0 ? (
                     Array.from(new Array(5)).map((item, index) => <MovieCardSkeleton key={index} />)
                 ) : queryString.length > 0 && movies && movies.length ? (
+
                     movies.map((movie) => (
                         <MovieCard
                             key={movie.id}

@@ -17,7 +17,7 @@ app.get("/getMovies/", async (req, res) => {
         const movieListJSON = await movieList.json();
         res.json(movieListJSON);
     } catch (error) {
-        console.error("Error occured", error);
+        console.error(error);
         res.status(500).send("Error obtaining results");
     }
 });
