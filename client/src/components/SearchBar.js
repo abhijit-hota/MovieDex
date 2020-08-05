@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import { Grid } from "@material-ui/core";
+import { Grid, InputAdornment, Button, TextField } from "@material-ui/core";
 // import { Grid, Button, MenuItem, Select, InputLabel } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,12 +14,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const scrollToRef = (ref) =>
+const scrollToRef = (ref) => {
+
     window.scrollTo({
         top: ref.current.offsetTop,
         left: 0,
         behavior: "smooth",
     });
+}
 
 const SearchBar = (props) => {
     const classes = useStyles();
@@ -32,6 +33,15 @@ const SearchBar = (props) => {
             scrollToRef(myRef);
         }
     };
+
+    const clearInput = () => {
+        props.setQueryString("");
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+    }
     return (
         <div id="searchBox" ref={myRef}>
             <Grid container className={classes.root}>
@@ -42,6 +52,13 @@ const SearchBar = (props) => {
                         value={props.queryString}
                         size="medium"
                         onChange={(e) => handleChange(e.target.value)}
+                        InputProps={ props.queryString.length > 0 ? {
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <Button onClick={() => clearInput()}>Clear</Button>
+                                </InputAdornment>
+                            ),
+                        } : null}
                     />
                 </Grid>
                 {/* <Grid container styles={{ width: "100%" }}>
