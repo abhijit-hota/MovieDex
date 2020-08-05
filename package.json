@@ -1,7 +1,7 @@
 {
   "name": "movie-dex",
   "version": "1.0.0",
-  "description": "Search Moviessssss",
+  "description": "Search Movies from the TMDB and OMDB API!",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abhijit-hota/movie-dex.git"
+    "url": "git+https://github.com/abhijit-hota/MovieDex.git"
   },
   "keywords": [
     "movie",
@@ -22,9 +22,9 @@
   "author": "Abhijit Hota",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/abhijit-hota/movie-dex/issues"
+    "url": "https://github.com/abhijit-hota/MovieDex/issues"
   },
-  "homepage": "https://github.com/abhijit-hota/movie-dex#readme",
+  "homepage": "https://searchmoviedex.herokuapp.com",
   "devDependencies": {
     "concurrently": "5.2.0"
   },

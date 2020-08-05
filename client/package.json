@@ -1,6 +1,8 @@
 {
-  "name": "movie-dex",
-  "version": "0.1.0",
+  "name": "moviedex",
+  "version": "1.0.0",
+  "author": "Abhijit Hota",
+  "license": "ISC",
   "private": true,
   "dependencies": {
     "@material-ui/core": "4.11.0",
