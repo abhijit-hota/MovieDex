@@ -21,23 +21,28 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
     };
     useEffect(() => {
         if (queryString.length === 0) {
-            setNumPagesAndResults(0, 0, 0);
+            setNumPagesAndResults({ total_pages: 0, total_results: 0, present_results: 0 });
             setLoading(true);
             setMessage("");
         }
         if (queryString.length) {
             setLoading(true);
             setMessage("Loading");
+            console.log("test");
             const fetchData = async () => {
                 const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`);
+
                 if (res.status >= 200 && res.status < 400) {
-                    
+
                     const resJSON = await res.json();
-                    console.log(resJSON);
                     const { results, total_pages, total_results } = resJSON;
                     setMovies(results);
-                    setNumPagesAndResults(total_pages, total_results, results.length);
+
+                    const present_results = results.length;
+                    setNumPagesAndResults({ total_pages, total_results, present_results });
+
                     setLoading(false);
+
                     if (results && results.length === 0) {
                         setMessage("No movies found! :(");
                     }
@@ -46,14 +51,15 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
                     setMessage("Something went wrong. Please try again.");
                 }
             };
+
             fetchData();
         }
-    }, [queryString, page]);
+    }, [queryString, page, setNumPagesAndResults]);
 
     return (
         <>
             <div id="movieContainer">
-                {isLoading && queryString.length > 0? (
+                {isLoading && queryString.length > 0 ? (
                     Array.from(new Array(5)).map((item, index) => <MovieCardSkeleton key={index} />)
                 ) : queryString.length > 0 && movies && movies.length ? (
                     movies.map((movie) => (

@@ -15,7 +15,6 @@ app.get("/getMovies/", async (req, res) => {
             `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&query=${encodeURIComponent(req.query.queryString)}&page=${req.query.page}&include_adult=false`
         );
         const movieListJSON = await movieList.json();
-
         res.json(movieListJSON);
     } catch (error) {
         console.error("Error occured", error);
