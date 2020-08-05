@@ -36,4 +36,4 @@ app.get("/getIMDBData/", async (req, res) => {
     res.json(dataJSON);
 });
 
-app.listen(process.env.PORT || 3001, () => console.log("Server running!"));
+app.listen(process.env.PORT || 3001, () => console.log(`Server running on ${process.env.PORT || 3001}!`));
