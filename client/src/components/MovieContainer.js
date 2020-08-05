@@ -19,8 +19,8 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
     const closeModal = () => {
         setModalDisplay(false);
     };
-    useEffect(() => {
 
+    useEffect(() => {
         const abortController = new AbortController();
 
         if (queryString.length === 0) {
@@ -31,9 +31,12 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
         if (queryString.length > 0) {
             setLoading(true);
             setMessage("Loading");
+
             const fetchData = async () => {
                 try {
-                    const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`, {signal: abortController.signal});
+                    const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`, {
+                        signal: abortController.signal,
+                    });
 
                     if (res.status >= 200 && res.status < 400) {
                         const resJSON = await res.json();
@@ -72,7 +75,7 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
         <>
             <div id="movieContainer">
                 {isLoading && queryString.length > 0 ? (
-                    Array.from(new Array(5)).map((item, index) => <MovieCardSkeleton key={index} />)
+                    Array.from(new Array(10)).map((item, index) => <MovieCardSkeleton key={index} />)
                 ) : queryString.length > 0 && movies && movies.length ? (
                     movies.map((movie) => (
                         <MovieCard

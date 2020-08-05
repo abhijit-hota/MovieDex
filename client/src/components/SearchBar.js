@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Grid } from "@material-ui/core";
@@ -15,11 +15,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const scrollToRef = (ref) =>
+    window.scrollTo({
+        top: ref.current.offsetTop,
+        left: 0,
+        behavior: "smooth",
+    });
+
 const SearchBar = (props) => {
     const classes = useStyles();
+    const myRef = useRef(null);
 
+    const handleChange = (val) => {
+        props.setQueryString(val);
+        if (val.length > 0) {
+            scrollToRef(myRef);
+        }
+    };
     return (
-        <div>
+        <div id="searchBox" ref={myRef}>
             <Grid container className={classes.root}>
                 <Grid lg={12} item>
                     <TextField
@@ -27,7 +41,7 @@ const SearchBar = (props) => {
                         label="Search for a movie"
                         value={props.queryString}
                         size="medium"
-                        onChange={(e) => props.setQueryString(e.target.value)}
+                        onChange={(e) => handleChange(e.target.value)}
                     />
                 </Grid>
                 {/* <Grid container styles={{ width: "100%" }}>
