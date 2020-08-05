@@ -1,8 +1,9 @@
 body {
-  height: 100vh;
+    min-height: 100vh;
     margin: 0;
     font-family: "Roboto";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #e5e5e5;
+    background: linear-gradient(#e5e5e5, whitesmoke);
+    background-repeat: no-repeat;
 }

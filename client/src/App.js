@@ -14,6 +14,11 @@ const App = (props) => {
         total_results: 0,
         present_results: 0,
     });
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    }
+
     return (
         <div className="App">
             <Logo />
@@ -24,7 +29,7 @@ const App = (props) => {
                     present_results={num_pages_results.present_results}
                     total_pages={num_pages_results.total_pages}
                     total_results={num_pages_results.total_results}
-                    handleChange={setPage}
+                    handleChange={handlePageChange}
                 />
             ) : null}
             <MovieContainer queryString={queryString} page={page} setNumPagesAndResults={setNumPagesAndResults} />

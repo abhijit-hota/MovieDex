@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import defaultPoster from "../Stylesheets/default.png";
 import { Card, CardActions, CardContent, CardMedia, Button, CardActionArea } from "@material-ui/core";
 
 const MovieCard = (props) => {
+    const [hover, setHover] = useState(false);
+
     const styles = {
         backgroundColor: "transparent",
         width: "270px",
@@ -12,11 +14,12 @@ const MovieCard = (props) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        borderRadius: "15px",
     };
 
     return (
-        <Card style={styles} raised>
-                <CardActionArea onClick={() => props.openModal(props.id)}>
+        <Card style={styles} raised={hover} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+            <CardActionArea onClick={() => props.openModal(props.id)}>
                 <CardMedia
                     component="img"
                     alt={`${props.title} poster`}
@@ -27,7 +30,7 @@ const MovieCard = (props) => {
                 <CardContent>
                     <h2 style={{ margin: "0px" }}>{props.title}</h2>
                     <h3 style={{ margin: "0px" }}>{props.year}</h3>
-                        {/* Click/Tap to know More */}
+                    {/* Click/Tap to know More */}
                 </CardContent>
             </CardActionArea>
         </Card>
