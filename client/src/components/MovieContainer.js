@@ -31,7 +31,6 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
         if (queryString.length > 0) {
             setLoading(true);
             setMessage("Loading");
-            console.log("test");
             const fetchData = async () => {
                 try {
                     const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`, {signal: abortController.signal});

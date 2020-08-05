@@ -1,9 +1,20 @@
 import React, { useState } from "react";
 import defaultPoster from "../Stylesheets/default.png";
-import { Card, CardActions, CardContent, CardMedia, Button, CardActionArea } from "@material-ui/core";
+import {
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Button,
+    CardActionArea,
+    useMediaQuery,
+    useTheme,
+} from "@material-ui/core";
 
 const MovieCard = (props) => {
     const [hover, setHover] = useState(false);
+    const theme = useTheme();
+    const isNotPhone = useMediaQuery(theme.breakpoints.up("sm"));
 
     const styles = {
         backgroundColor: "transparent",
@@ -29,8 +40,8 @@ const MovieCard = (props) => {
                 />
                 <CardContent>
                     <h2 style={{ margin: "0px" }}>{props.title}</h2>
-                    <h3 style={{ margin: "0px" }}>{props.year}</h3>
-                    {/* Click/Tap to know More */}
+                    <h3 style={{ margin: "0px 0px 5px 0px" }}>{props.year}</h3>
+                    {isNotPhone ? null : "Tap to know more"}
                 </CardContent>
             </CardActionArea>
         </Card>
