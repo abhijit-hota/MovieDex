@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "production") {
     console.log("Production environment");
     app.use(express.static("client/build"));
 }
-app.get("/getMovies/", async (req, res) => {
+app.get("/search/", async (req, res) => {
     try {
         const movieList = await fetch(
             `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&query=${encodeURIComponent(req.query.queryString)}&page=${req.query.page}&include_adult=false`
@@ -22,7 +22,7 @@ app.get("/getMovies/", async (req, res) => {
     }
 });
 
-app.get("/getMovieDetails/", async (req, res) => {
+app.get("/tmdb-data/", async (req, res) => {
     const movie = await fetch(
         `https://api.themoviedb.org/3/movie/${req.query.id}?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US`
     );
@@ -30,8 +30,8 @@ app.get("/getMovieDetails/", async (req, res) => {
     res.json(movieJSON);
 });
 
-app.get("/getIMDBData/", async (req, res) => {
-    const data = await fetch(`http://www.omdbapi.com/?i=${req.query.imdbId}&apikey=${process.env.OMDB_API_KEY}`);
+app.get("/imdb-data/", async (req, res) => {
+    const data = await fetch(`http://www.omdbapi.com/?i=${req.query.id}&apikey=${process.env.OMDB_API_KEY}`);
     const dataJSON = await data.json();
     res.json(dataJSON);
 });

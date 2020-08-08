@@ -1,7 +1,7 @@
 import React from "react";
-import logo from "../Stylesheets/logo.png";
-import tmdbLogo from "../Stylesheets/tmdbLogo.png";
-import omdbLogo from "../Stylesheets/omdbLogo.png";
+import logo from "../Stylesheets/logo.webp";
+import tmdbLogo from "../Stylesheets/tmdbLogo.webp";
+import omdbLogo from "../Stylesheets/omdbLogo.webp";
 
 const Logo = () => {
     const styles = {

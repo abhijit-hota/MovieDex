@@ -4,6 +4,7 @@
   "description": "Search Movies from the TMDB and OMDB API!",
   "main": "server.js",
   "scripts": {
+    "dev": "nodemon server.js --ignore client",
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

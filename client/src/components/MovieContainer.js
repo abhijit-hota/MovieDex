@@ -34,7 +34,7 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
 
             const fetchData = async () => {
                 try {
-                    const res = await fetch(`/getMovies/?queryString=${queryString}&page=${page}`, {
+                    const res = await fetch(`/search/?queryString=${queryString}&page=${page}`, {
                         signal: abortController.signal,
                     });
 

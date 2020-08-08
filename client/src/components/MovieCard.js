@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import defaultPoster from "../Stylesheets/default.png";
 import {
     Card,
-    CardActions,
     CardContent,
     CardMedia,
-    Button,
     CardActionArea,
     useMediaQuery,
     useTheme,

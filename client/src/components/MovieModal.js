@@ -28,7 +28,7 @@ const MovieModal = (props) => {
 
         const fetchImdbIDandPoster = async () => {
             try {
-                const res = await fetch(`getMovieDetails/?id=${props.tmdb_id}`, { signal: abortController.signal });
+                const res = await fetch(`tmdb-data?id=${props.tmdb_id}`, { signal: abortController.signal });
                 const resJSON = await res.json();
                 await setTmdbData(resJSON);
             } catch (error) {
@@ -51,7 +51,7 @@ const MovieModal = (props) => {
 
         const fetchIMDBData = async () => {
             try {
-                const res = await fetch(`/getIMDBData/?imdbId=${tmdbData.imdb_id}`, { signal: abortController.signal });
+                const res = await fetch(`/imdb-data/?id=${tmdbData.imdb_id}`, { signal: abortController.signal });
                 const resJSON = await res.json();
                 setImdbData(resJSON);
                 if (imdbData.Response === "True") {
