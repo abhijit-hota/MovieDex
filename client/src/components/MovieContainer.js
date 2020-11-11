@@ -91,9 +91,7 @@ const MovieContainer = ({ setNumPagesAndResults, queryString, page }) => {
                     <h1>{message}</h1>
                 )}
             </div>
-            {shouldModalDisplay ? (
-                <MovieModal shouldModalDisplay={shouldModalDisplay} tmdb_id={tmdb_id} closeModal={closeModal} />
-            ) : null}
+            <MovieModal shouldModalDisplay={shouldModalDisplay} tmdb_id={tmdb_id} closeModal={closeModal} />
         </>
     );
 };

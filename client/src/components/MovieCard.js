@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import defaultPoster from "../Stylesheets/default.png";
-import {
-    Card,
-    CardContent,
-    CardMedia,
-    CardActionArea,
-    useMediaQuery,
-    useTheme,
-} from "@material-ui/core";
+import { Card, CardContent, CardMedia, CardActionArea, useMediaQuery, useTheme } from "@material-ui/core";
 
 const MovieCard = (props) => {
     const [hover, setHover] = useState(false);
@@ -30,6 +23,7 @@ const MovieCard = (props) => {
         <Card style={styles} raised={hover} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             <CardActionArea onClick={() => props.openModal(props.id)}>
                 <CardMedia
+                    loading="eager"
                     component="img"
                     alt={`${props.title} poster`}
                     width="100%"
