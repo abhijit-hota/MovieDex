@@ -2,7 +2,7 @@
 
 <center> <h2> A React and Node.js app that searches for movies using the TMDB and OMDB database. </h2></center>
 
-<center> <h2> Try it out here: <a href="https://searchmoviedex.herokuapp.com/" target="_blank">MovieDex</a></h2> </center>
+<center> <h2> Try it out here: <a href="https://moviedex.js.org/" target="_blank" rel="noopener noreferrer">MovieDex</a></h2> </center>
 
 ## Powered by ✨
 
