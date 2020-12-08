@@ -20,9 +20,9 @@
   - `OMDB_API_KEY` with the value set to your [OMDB API key](http://www.omdbapi.com/apikey.aspx)
   - `PORT` (optional) with any valid port value.
 - `npm install` in the root folder.
-- `npm install` in the `client` folder.
-- `node server.js` in the local folder.
-- `npm run start` or `yarn start` in the `client` folder.
+- `yarn` in the `client` folder.
+- `node server.js` or `nodemon server.js` in the local folder.
+- `yarn start` in the `client` folder.
 
 ----
 
